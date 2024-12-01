@@ -6,11 +6,12 @@ use Exception;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\LazyCollection;
 use Laravel\Scout\Builder;
+use Laravel\Scout\Contracts\UpdatesIndexSettings;
 
 /**
  * @template TAlgoliaClient of object
  */
-abstract class AlgoliaEngine extends Engine
+abstract class AlgoliaEngine extends Engine implements UpdatesIndexSettings
 {
     /**
      * The Algolia client.
@@ -81,6 +82,28 @@ abstract class AlgoliaEngine extends Engine
      * @return void
      */
     abstract public function flush($model);
+
+    /**
+     * Create a search index.
+     *
+     * @return mixed
+     *
+     * @throws \Algolia\AlgoliaSearch\Exceptions\AlgoliaException
+     */
+    abstract public function updateIndexSettings(string $name, array $options = []);
+
+    /**
+     * Configures the soft delete filter on the index settings.
+     *
+     * @param array $settings
+     * @return array
+     */
+    public function configureSoftDeleteFilter(array $settings = []): array
+    {
+        $settings['attributesForFaceting'][] = 'filterOnly(__soft_deleted)';
+
+        return $settings;
+    }
 
     /**
      * Perform the given search on the engine.

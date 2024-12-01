@@ -136,6 +136,18 @@ class Algolia4Engine extends AlgoliaEngine
     }
 
     /**
+     * Create a search index.
+     *
+     * @return mixed
+     *
+     * @throws \Algolia\AlgoliaSearch\Exceptions\AlgoliaException
+     */
+    public function updateIndexSettings(string $name, array $options = [])
+    {
+        return $this->algolia->setSettings($name, $options);
+    }
+
+    /**
      * Perform the given search on the engine.
      *
      * @param  \Laravel\Scout\Builder  $builder
