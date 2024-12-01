@@ -400,7 +400,7 @@ class MeilisearchEngine extends Engine implements UpdatesIndexSettings
     /**
      * Configures the soft delete filter on the index settings.
      *
-     * @param array $settings
+     * @param  array  $settings
      * @return array
      */
     public function configureSoftDeleteFilter(array $settings = []): array
