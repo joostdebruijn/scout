@@ -141,18 +141,6 @@ class Algolia3Engine extends AlgoliaEngine
     }
 
     /**
-     * Create a search index.
-     *
-     * @return mixed
-     *
-     * @throws \Algolia\AlgoliaSearch\Exceptions\AlgoliaException
-     */
-    public function updateIndexSettings(string $name, array $options = [])
-    {
-        return $this->algolia->initIndex($name)->setSettings($options);
-    }
-
-    /**
      * Perform the given search on the engine.
      *
      * @param  \Laravel\Scout\Builder  $builder
@@ -177,5 +165,15 @@ class Algolia3Engine extends AlgoliaEngine
         }
 
         return $algolia->search($builder->query, $options);
+    }
+
+    /**
+     * Update the index settings for the given index.
+     *
+     * @return void
+     */
+    public function updateIndexSettings(string $name, array $settings = [])
+    {
+        $this->algolia->initIndex($name)->setSettings($settings);
     }
 }

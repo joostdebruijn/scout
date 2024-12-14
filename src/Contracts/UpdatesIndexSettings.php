@@ -4,7 +4,17 @@ namespace Laravel\Scout\Contracts;
 
 interface UpdatesIndexSettings
 {
-    public function updateIndexSettings(string $name, array $options = []);
+    /**
+     * Update the index settings for the given index.
+     *
+     * @return void
+     */
+    public function updateIndexSettings(string $name, array $settings = []);
 
-    public function configureSoftDeleteFilter(array $settings = []): array;
+    /**
+     * Configure the soft delete filter within the given settings.
+     *
+     * @return array
+     */
+    public function configureSoftDeleteFilter(array $settings = []);
 }

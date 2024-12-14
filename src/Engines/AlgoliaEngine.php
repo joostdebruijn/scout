@@ -84,26 +84,11 @@ abstract class AlgoliaEngine extends Engine implements UpdatesIndexSettings
     abstract public function flush($model);
 
     /**
-     * Create a search index.
+     * Update the index settings for the given index.
      *
-     * @return mixed
-     *
-     * @throws \Algolia\AlgoliaSearch\Exceptions\AlgoliaException
+     * @return void
      */
-    abstract public function updateIndexSettings(string $name, array $options = []);
-
-    /**
-     * Configures the soft delete filter on the index settings.
-     *
-     * @param  array  $settings
-     * @return array
-     */
-    public function configureSoftDeleteFilter(array $settings = []): array
-    {
-        $settings['attributesForFaceting'][] = 'filterOnly(__soft_deleted)';
-
-        return $settings;
-    }
+    abstract public function updateIndexSettings(string $name, array $settings = []);
 
     /**
      * Perform the given search on the engine.
@@ -266,6 +251,18 @@ abstract class AlgoliaEngine extends Engine implements UpdatesIndexSettings
     public function createIndex($name, array $options = [])
     {
         throw new Exception('Algolia indexes are created automatically upon adding objects.');
+    }
+
+    /**
+     * Configure the soft delete filter within the given settings.
+     *
+     * @return array
+     */
+    public function configureSoftDeleteFilter(array $settings = [])
+    {
+        $settings['attributesForFaceting'][] = 'filterOnly(__soft_deleted)';
+
+        return $settings;
     }
 
     /**

@@ -384,26 +384,21 @@ class MeilisearchEngine extends Engine implements UpdatesIndexSettings
     }
 
     /**
-     * Update an index's settings.
+     * Update the index settings for the given index.
      *
-     * @param  string  $name
-     * @param  array  $options
-     * @return array
-     *
-     * @throws \Meilisearch\Exceptions\ApiException
+     * @return void
      */
-    public function updateIndexSettings($name, array $options = [])
+    public function updateIndexSettings($name, array $settings = [])
     {
-        return $this->meilisearch->index($name)->updateSettings($options);
+        $this->meilisearch->index($name)->updateSettings($settings);
     }
 
     /**
-     * Configures the soft delete filter on the index settings.
+     * Configure the soft delete filter within the given settings.
      *
-     * @param  array  $settings
      * @return array
      */
-    public function configureSoftDeleteFilter(array $settings = []): array
+    public function configureSoftDeleteFilter(array $settings = [])
     {
         $settings['filterableAttributes'][] = '__soft_deleted';
 
